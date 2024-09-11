@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\antos\\OneDrive\\Desktop\\spatial-unity-starter-template-main\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{262471C2-A5EE-5D8B-C74D-6D2A36C7B965}|MyCustomAssembly.csproj|c:\\users\\antos\\onedrive\\desktop\\spatial-unity-starter-template-main\\assets\\scripts\\testscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{262471C2-A5EE-5D8B-C74D-6D2A36C7B965}|MyCustomAssembly.csproj|solutionrelative:assets\\scripts\\testscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TestScript.cs",
+              "DocumentMoniker": "C:\\Users\\antos\\OneDrive\\Desktop\\spatial-unity-starter-template-main\\Assets\\Scripts\\TestScript.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TestScript.cs",
+              "ToolTip": "C:\\Users\\antos\\OneDrive\\Desktop\\spatial-unity-starter-template-main\\Assets\\Scripts\\TestScript.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TestScript.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-11T21:09:51.423Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
