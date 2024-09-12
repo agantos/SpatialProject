@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using SpatialSys.UnitySDK;
+using TMPro;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
         MakeCameraFirstPerson();
-        HideDefaultUI();
+        Invoke("HideDefaultUI", 1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     void MakeCameraFirstPerson()
@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
 	}
 
 	void HideDefaultUI()
-    {
+    {    
         SpatialBridge.coreGUIService.CloseAllCoreGUI();
     }
 }
