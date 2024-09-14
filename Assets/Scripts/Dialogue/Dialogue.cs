@@ -8,13 +8,13 @@ using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
-	public string[] texts;
-	
+	public string[] texts;	
 	int currIndex;
 	bool isOnFinalText = false;
-	
+
 	TextTypingAnimation dialogueText;
-	Canvas UIOverlay;
+	[Header("Minimizable Dialogue UI")]
+	public GameObject UIOverlay;
 
 	[Header("Icons")]
 	public GameObject NextIcon;
@@ -30,6 +30,9 @@ public class Dialogue : MonoBehaviour
 
 	[Header("Options UI")]
 	public GameObject Options;
+
+	[Header("Dialogue Controls")]
+	public int stepToSpawnOptions = -1; // -1 means no options in this dialogue
 	public int goodOptionSteps;
 	public int badOptionSteps;
 
@@ -38,19 +41,24 @@ public class Dialogue : MonoBehaviour
 	{
 		currIndex = 0;
 		dialogueText = GetComponentInChildren<TextTypingAnimation>();
-		UIOverlay = FindAnyObjectByType<Canvas>();
 		Invoke("StartDialogue", 0.5f);
 	}
 
 	public void ButtonClick()
 	{
-		if(!isOnFinalText)
+		if(!isOnFinalText && stepToSpawnOptions != currIndex)
 		{
 			PlayNext();
-		}
-		else
+		}		
+		
+		if(isOnFinalText)
 		{
 			UIOverlay.gameObject.SetActive(false);
+		}
+
+		if(stepToSpawnOptions == currIndex)
+		{
+			SetOptionUIActive(true);
 		}
 	}
 
@@ -59,18 +67,17 @@ public class Dialogue : MonoBehaviour
 		PlayIndex(0);
 	}
 
-	void PlayIndex(int i) {
+	void PlayIndex(int i) {		
 		currIndex = i;
 		SetAvatars();
-		dialogueText.SpawnText(texts[i]);
+		dialogueText.SpawnText(texts[i]);		
 	}
 
 	void PlayNext()
 	{
 		if (dialogueText.HasTextCompleted())
 		{
-			currIndex++;	
-
+			currIndex++;
 			if(currIndex < texts.Length)
 			{
 				PlayIndex(currIndex);
@@ -139,8 +146,8 @@ public class Dialogue : MonoBehaviour
 	void SetOptionUIActive(bool active)
 	{
 		Options.SetActive(active);
+		NextIcon.SetActive(!active);
 	}
-
 
 	// Steps are structured as follows:
 	// [step, step, ... good_1, ..., good_last, bad_0, ... bad_last, step, ...] 
@@ -214,9 +221,10 @@ public class Dialogue : MonoBehaviour
 			}
 
 			texts = textsList.ToArray();
-
+			
 			PlayNext();
 			SetOptionUIActive(false);
+			UIManager.Instance.LoseLife();
 		}
 	}
 }

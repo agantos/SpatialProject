@@ -34,12 +34,16 @@ public class TextTypingAnimation : MonoBehaviour
 
 		isCoroutineRunning = false;
 		text_TMP.text = text_string;
+
+		AudioManager.Instance.StopTypingSoundEffect();
 	}
 
 	public void SpawnText(string text)
 	{
 		typingCoroutine = StartCoroutine(StartSpawnRoutine(text));
 		isCoroutineRunning = true;
+
+		AudioManager.Instance.PlayTypingSoundEffect();
 	}
 
 	public void CompleteText()
@@ -47,6 +51,8 @@ public class TextTypingAnimation : MonoBehaviour
 		StopCoroutine(typingCoroutine);
 		text_TMP.text = text_string;
 		isCoroutineRunning = false;
+
+		AudioManager.Instance.StopTypingSoundEffect();
 	}
 
 	public bool HasTextCompleted()

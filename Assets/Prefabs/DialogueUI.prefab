@@ -536,7 +536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8308464602331137075
 RectTransform:
   m_ObjectHideFlags: 0
@@ -574,7 +574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8308464602505682624
 RectTransform:
   m_ObjectHideFlags: 0
@@ -611,7 +611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8308464602742182563
 RectTransform:
   m_ObjectHideFlags: 0
@@ -876,7 +876,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8308464603349047744}
-  m_LocalRotation: {x: -0, y: -0, z: -3.6379788e-11, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -911,18 +911,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   texts:
   - Options Text
-  - Bad Option Text
-  - Good Option text
-  - Follow the circles and click on the green circles.
-  - 'Click on the arrow to start. '
+  - Good Text
+  - Good Following
+  - Bad Text
+  - text
   - 'Let''s go! '
   NextIcon: {fileID: 8308464603185436951}
   EndIcon: {fileID: 8308464602090363948}
   AvatarLeft: {fileID: 8308464603881053304}
   AvatarMiddle: {fileID: 8308464602505682627}
   AvatarRight: {fileID: 8308464602742182562}
-  steps: 000000000800000003000000010000000800000006000000020000000800000005000000080000000800000008000000000000000800000008000000080000000800000008000000
+  steps: 000000000800000005000000020000000800000005000000000000000800000005000000000000000800000005000000000000000800000008000000080000000800000008000000
   Options: {fileID: 8308464602331137074}
+  stepToSpawnOptions: 2
+  goodOptionSteps: 1
+  badOptionSteps: 1
 --- !u!1 &8308464603539813385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,7 +1140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1558,7 +1561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8308464603881053305
 RectTransform:
   m_ObjectHideFlags: 0
