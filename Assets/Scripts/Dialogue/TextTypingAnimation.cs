@@ -36,7 +36,7 @@ public class TextTypingAnimation : MonoBehaviour
 		text_TMP.text = text_string;
 	}
 
-	public void Play(string text)
+	public void SpawnText(string text)
 	{
 		typingCoroutine = StartCoroutine(StartSpawnRoutine(text));
 		isCoroutineRunning = true;

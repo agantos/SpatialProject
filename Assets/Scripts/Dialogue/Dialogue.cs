@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class Dialogue : MonoBehaviour
 	int currIndex;
 	bool isOnFinalText = false;
 	
-	TextTypingAnimation text;
+	TextTypingAnimation dialogueText;
 	Canvas UIOverlay;
 
 	[Header("Icons")]
@@ -27,13 +28,18 @@ public class Dialogue : MonoBehaviour
 	[Header("Steps (each three are one step)")]
 	public AvatarEnum[] steps;
 
+	[Header("Options UI")]
+	public GameObject Options;
+	public int goodOptionSteps;
+	public int badOptionSteps;
+
 
 	private void Start()
 	{
 		currIndex = 0;
-		text = GetComponentInChildren<TextTypingAnimation>();
+		dialogueText = GetComponentInChildren<TextTypingAnimation>();
 		UIOverlay = FindAnyObjectByType<Canvas>();
-		Invoke("OpenDialogue", 0.5f);
+		Invoke("StartDialogue", 0.5f);
 	}
 
 	public void ButtonClick()
@@ -48,27 +54,34 @@ public class Dialogue : MonoBehaviour
 		}
 	}
 
-	public void OpenDialogue()
+	public void StartDialogue()
 	{
-		PlayNext();
+		PlayIndex(0);
+	}
+
+	void PlayIndex(int i) {
+		currIndex = i;
+		SetAvatars();
+		dialogueText.SpawnText(texts[i]);
 	}
 
 	void PlayNext()
 	{
-		if(currIndex < texts.Length)
+		if (dialogueText.HasTextCompleted())
 		{
-			if (text.HasTextCompleted())
+			currIndex++;	
+
+			if(currIndex < texts.Length)
 			{
-				SetAvatars();
-				text.Play(texts[currIndex]);
-				currIndex++;
+				PlayIndex(currIndex);
 			}
-			else
-			{
-				text.CompleteText();
-			}			
 		}
 		else
+		{
+			dialogueText.CompleteText();
+		}
+
+		if (currIndex >= texts.Length - 1)
 		{
 			isOnFinalText = true;
 			SpawnExitUI();
@@ -121,5 +134,89 @@ public class Dialogue : MonoBehaviour
 		int firstIndex = i*3;
 		AvatarEnum[] step = { steps[firstIndex], steps[firstIndex + 1], steps[firstIndex + 2] };
 		return step;
+	}
+
+	void SetOptionUIActive(bool active)
+	{
+		Options.SetActive(active);
+	}
+
+
+	// Steps are structured as follows:
+	// [step, step, ... good_1, ..., good_last, bad_0, ... bad_last, step, ...] 
+	public void GoodDialoguePressed()
+	{
+		if (dialogueText.HasTextCompleted())
+		{
+			// Remove the bad dialogue steps.
+			int firstIndexOfBadDialogue = currIndex + 1 + goodOptionSteps;
+			List<AvatarEnum> stepsList = new List<AvatarEnum>(steps);
+
+			int firstStepIndex_Bad = firstIndexOfBadDialogue * 3;
+
+			// Start Removing from the last element to not mess with the list.
+			for (int i = badOptionSteps; i > 0; i--)
+			{
+				int lastStepIndex_Bad = firstStepIndex_Bad + i - 1;
+				stepsList.RemoveAt(lastStepIndex_Bad + 2);
+				stepsList.RemoveAt(lastStepIndex_Bad + 1);
+				stepsList.RemoveAt(lastStepIndex_Bad + 0);
+			}
+
+			steps = stepsList.ToArray();
+
+			// We also remove the bad dialogue from texts
+			List<string> textsList = new List<string>(texts);
+
+			// Start Removing from the last element to not mess with the list.
+			for (int i = badOptionSteps; i > 0; i--)
+			{
+				int lastBadIndex = firstIndexOfBadDialogue + (i - 1);
+				textsList.RemoveAt(lastBadIndex);
+			}
+
+			texts = textsList.ToArray();
+
+			PlayNext();
+			SetOptionUIActive(false);
+		}		
+	}
+
+	public void BadDialoguePressed()
+	{
+		if (dialogueText.HasTextCompleted())
+		{
+			// Remove the good dialogue steps.
+			int firstIndexOfGoodDialogue = currIndex + 1;
+			List<AvatarEnum> stepsList = new List<AvatarEnum>(steps);
+
+			int firstStepIndex_Good = firstIndexOfGoodDialogue * 3;
+
+			// Start Removing from the last element to not mess with the list.
+			for (int i = goodOptionSteps; i > 0; i--)
+			{
+				int lastStepIndex_Good = firstStepIndex_Good + i - 1;
+				stepsList.RemoveAt(lastStepIndex_Good + 2);
+				stepsList.RemoveAt(lastStepIndex_Good + 1);
+				stepsList.RemoveAt(lastStepIndex_Good + 0);
+			}
+
+			steps = stepsList.ToArray();
+
+			// We also remove the good dialogue from texts
+			List<string> textsList = new List<string>(texts);
+
+			// Start Removing from the last element to not mess with the list.
+			for (int i = goodOptionSteps; i > 0; i--)
+			{
+				int lastGoodIndex = firstIndexOfGoodDialogue + (i - 1);
+				textsList.RemoveAt(lastGoodIndex);
+			}
+
+			texts = textsList.ToArray();
+
+			PlayNext();
+			SetOptionUIActive(false);
+		}
 	}
 }
