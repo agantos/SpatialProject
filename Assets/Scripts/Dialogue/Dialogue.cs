@@ -41,7 +41,7 @@ public class Dialogue : MonoBehaviour
 	{
 		currIndex = 0;
 		dialogueText = GetComponentInChildren<TextTypingAnimation>();
-		Invoke("StartDialogue", 0.5f);
+		UIOverlay.gameObject.SetActive(false);
 	}
 
 	public void ButtonClick()
@@ -53,10 +53,10 @@ public class Dialogue : MonoBehaviour
 		
 		if(isOnFinalText)
 		{
-			UIOverlay.gameObject.SetActive(false);
+			EndDialogue();
 		}
 
-		if(stepToSpawnOptions == currIndex)
+		if (stepToSpawnOptions == currIndex)
 		{
 			SetOptionUIActive(true);
 		}
@@ -64,7 +64,15 @@ public class Dialogue : MonoBehaviour
 
 	public void StartDialogue()
 	{
+		UIOverlay.gameObject.SetActive(true);
+		CameraController.Instance.FreezeMovementAndRotation();
 		PlayIndex(0);
+	}
+
+	public void EndDialogue()
+	{
+		UIOverlay.gameObject.SetActive(false);
+		CameraController.Instance.UnFreezeMovementAndRotation();
 	}
 
 	void PlayIndex(int i) {		

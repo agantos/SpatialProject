@@ -40,10 +40,9 @@ public class CameraController : MonoBehaviour
 	void HideDefaultUI()
     {    
         SpatialBridge.coreGUIService.CloseAllCoreGUI();
-        FreezeMovementAndRotation();
     }
 
-    void FreezeMovementAndRotation()
+    public void FreezeMovementAndRotation()
     {
         // Freeze Rotation
         SpatialBridge.cameraService.lockCameraRotation = true;
@@ -56,7 +55,7 @@ public class CameraController : MonoBehaviour
 		SpatialBridge.actorService.localActor.avatar.runSpeed = 0;
 	}
 
-    void UnFreezeMovementAndRotation()
+    public void UnFreezeMovementAndRotation()
     {
         SpatialBridge.cameraService.lockCameraRotation = false;
         SpatialBridge.actorService.localActor.avatar.walkSpeed = initialWalkSpeed;

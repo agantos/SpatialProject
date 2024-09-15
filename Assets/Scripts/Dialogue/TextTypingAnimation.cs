@@ -14,11 +14,12 @@ public class TextTypingAnimation : MonoBehaviour
 
 	private void Start()
 	{
-		text_TMP = GetComponent<TextMeshProUGUI>();
 	}
 
 	IEnumerator StartSpawnRoutine(string text)
 	{
+		text_TMP = GetComponent<TextMeshProUGUI>();
+
 		text_string = text;
 
 		int characters = text_string.Length;
